@@ -41,7 +41,7 @@ def _get_list_of_tables(tables):
     from .table import Table, Row
 
     # Make sure we have a list of things
-    if not isinstance(tables, collections.Sequence):
+    if not isinstance(tables, collections.abc.Sequence):
         tables = [tables]
 
     # Make sure each thing is a Table or Row
@@ -753,7 +753,7 @@ def _join(left, right, keys=None, join_type='inner',
                     .format(out_name, out[out_name].__class__.__name__))
 
     # If col_name_map supplied as a dict input, then update.
-    if isinstance(_col_name_map, collections.Mapping):
+    if isinstance(_col_name_map, collections.abc.Mapping):
         _col_name_map.update(col_name_map)
 
     return out
@@ -862,7 +862,7 @@ def _vstack(arrays, join_type='outer', col_name_map=None, metadata_conflicts='wa
             idx0 = idx1
 
     # If col_name_map supplied as a dict input, then update.
-    if isinstance(_col_name_map, collections.Mapping):
+    if isinstance(_col_name_map, collections.abc.Mapping):
         _col_name_map.update(col_name_map)
 
     return out
@@ -960,7 +960,7 @@ def _hstack(arrays, join_type='outer', uniq_col_name='{col_name}_{table_name}',
                 out[out_name] = array[name][:n_rows]
 
     # If col_name_map supplied as a dict input, then update.
-    if isinstance(_col_name_map, collections.Mapping):
+    if isinstance(_col_name_map, collections.abc.Mapping):
         _col_name_map.update(col_name_map)
 
     return out

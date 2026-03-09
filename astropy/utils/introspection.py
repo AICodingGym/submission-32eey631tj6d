@@ -139,10 +139,26 @@ def minversion(module, version, inclusive=True, version_path='__version__'):
     else:
         have_version = resolve_name(module.__name__, version_path)
 
-    if inclusive:
-        return LooseVersion(have_version) >= LooseVersion(version)
-    else:
-        return LooseVersion(have_version) > LooseVersion(version)
+    have_parts = LooseVersion(have_version).version
+    req_parts = LooseVersion(version).version
+    max_len = max(len(have_parts), len(req_parts))
+
+    for i in range(max_len):
+        hp = have_parts[i] if i < len(have_parts) else -1
+        rp = req_parts[i] if i < len(req_parts) else -1
+
+        hp_val = (1, hp) if isinstance(hp, int) else (0, hp)
+        rp_val = (1, rp) if isinstance(rp, int) else (0, rp)
+
+        if hp_val == rp_val:
+            continue
+
+        if inclusive:
+            return hp_val >= rp_val
+        else:
+            return hp_val > rp_val
+
+    return inclusive
 
 
 def find_current_module(depth=1, finddiff=False):

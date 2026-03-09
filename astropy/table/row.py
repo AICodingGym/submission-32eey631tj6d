@@ -179,4 +179,4 @@ class Row:
         return str(self).encode('utf-8')
 
 
-collections.Sequence.register(Row)
+collections.abc.Sequence.register(Row)

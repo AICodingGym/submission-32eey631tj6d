@@ -146,7 +146,7 @@ def common_dtype(cols):
 
 def _check_for_sequence_of_structured_arrays(arrays):
     err = '`arrays` arg must be a sequence (e.g. list) of structured arrays'
-    if not isinstance(arrays, collections.Sequence):
+    if not isinstance(arrays, collections.abc.Sequence):
         raise TypeError(err)
     for array in arrays:
         # Must be structured array
