@@ -285,3 +285,19 @@ def test_return_annotation():
     assert solarx.unit is u.deg
     """
     return src
+
+
+@py3only
+def test_return_annotation_none():
+    src = """
+    class MyClass:
+        @u.quantity_input
+        def __init__(self, solarx: u.arcsec) -> None:
+            self.solarx = solarx
+
+    obj = MyClass(1*u.arcsec)
+    assert isinstance(obj.solarx, u.Quantity)
+    assert obj.solarx.unit == u.arcsec
+    """
+    return src
+
