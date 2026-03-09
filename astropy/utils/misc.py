@@ -498,7 +498,7 @@ class InheritDocstrings(type):
     """
     This metaclass makes methods of a class automatically have their
     docstrings filled in from the methods they override in the base
-    class.
+    class. It also works for properties.
 
     If the class uses multiple inheritance, the docstring will be
     chosen from the first class in the bases list, in the same way as
@@ -528,7 +528,7 @@ class InheritDocstrings(type):
                 not key.startswith('_'))
 
         for key, val in dct.items():
-            if (inspect.isfunction(val) and
+            if ((inspect.isfunction(val) or isinstance(val, property)) and
                 is_public_member(key) and
                 val.__doc__ is None):
                 for base in cls.__mro__[1:]:

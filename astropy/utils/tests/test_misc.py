@@ -80,13 +80,23 @@ def test_inherit_docstrings():
             "FOO"
             pass
 
+        @property
+        def prop(self):
+            "BAR"
+            return 1
+
     class Subclass(Base):
         def __call__(self, *args):
             pass
 
+        @property
+        def prop(self):
+            return 2
+
     if Base.__call__.__doc__ is not None:
         # TODO: Maybe if __doc__ is None this test should be skipped instead?
         assert Subclass.__call__.__doc__ == "FOO"
+        assert Subclass.prop.__doc__ == "BAR"
 
 
 def test_set_locale():
