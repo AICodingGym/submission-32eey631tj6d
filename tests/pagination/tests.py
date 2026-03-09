@@ -298,7 +298,6 @@ class PaginationTests(SimpleTestCase):
             paginator.get_page(1)
 
 
-
 class ModelPaginationTests(TestCase):
     """
     Test pagination with Django model instances
