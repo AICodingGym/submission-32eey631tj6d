@@ -1002,3 +1002,27 @@ def test_meta_not_modified(tmp_path):
     t.write(filename)
     assert len(t.meta) == 1
     assert t.meta["comments"] == ["a", "b"]
+
+
+def test_is_fits_non_fits_path_no_index_error():
+    """
+    Regression test for https://github.com/astropy/astropy/issues/14309
+
+    identify_format (and the underlying is_fits identifier) should return an
+    empty list — not raise IndexError — when called with a non-FITS filepath
+    and an empty args sequence.
+    """
+    from astropy.io.registry import identify_format
+
+    # This previously raised IndexError: tuple index out of range because
+    # is_fits fell through to `isinstance(args[0], ...)` with args=()
+    result = identify_format("write", Table, "bububu.ecsv", None, [], {})
+    assert "fits" not in result
+
+    # Ensure FITS paths are still correctly identified
+    result = identify_format("write", Table, "test.fits", None, [], {})
+    assert "fits" in result
+
+    result = identify_format("write", Table, "test.fits.gz", None, [], {})
+    assert "fits" in result
+

@@ -69,6 +69,7 @@ def is_fits(origin, filepath, fileobj, *args, **kwargs):
             (".fits", ".fits.gz", ".fit", ".fit.gz", ".fts", ".fts.gz")
         ):
             return True
+        return False
     return isinstance(args[0], (HDUList, TableHDU, BinTableHDU, GroupsHDU))
 
 
