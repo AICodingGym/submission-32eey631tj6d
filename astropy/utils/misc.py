@@ -534,7 +534,14 @@ class InheritDocstrings(type):
                 for base in cls.__mro__[1:]:
                     super_method = getattr(base, key, None)
                     if super_method is not None:
-                        val.__doc__ = super_method.__doc__
+                        if isinstance(val, property):
+                            # property.__doc__ is read-only, so we must
+                            # reconstruct the property with the inherited doc
+                            new_prop = property(val.fget, val.fset, val.fdel,
+                                                super_method.__doc__)
+                            setattr(cls, key, new_prop)
+                        else:
+                            val.__doc__ = super_method.__doc__
                         break
 
         super().__init__(name, bases, dct)
