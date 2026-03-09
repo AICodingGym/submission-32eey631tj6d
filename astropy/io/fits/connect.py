@@ -74,6 +74,10 @@ def is_fits(origin, filepath, fileobj, *args, **kwargs):
 
 
 
+
+
+
+
 def _decode_mixins(tbl):
     """Decode a Table ``tbl`` that has astropy Columns + appropriate meta-data into
     the corresponding table with mixin columns (as appropriate).
