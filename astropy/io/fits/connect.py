@@ -73,6 +73,7 @@ def is_fits(origin, filepath, fileobj, *args, **kwargs):
     return isinstance(args[0], (HDUList, TableHDU, BinTableHDU, GroupsHDU))
 
 
+
 def _decode_mixins(tbl):
     """Decode a Table ``tbl`` that has astropy Columns + appropriate meta-data into
     the corresponding table with mixin columns (as appropriate).
