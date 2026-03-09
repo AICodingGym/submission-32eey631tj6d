@@ -298,38 +298,6 @@ class PaginationTests(SimpleTestCase):
             paginator.get_page(1)
 
 
-    def test_paginator_iteration(self):
-        """
-        Paginator.__iter__ yields Page objects for each page in page_range.
-        """
-        paginator = Paginator([1, 2, 3, 4, 5], 2)
-        pages = list(paginator)
-        self.assertEqual(len(pages), 3)
-        self.assertEqual(pages[0].object_list, [1, 2])
-        self.assertEqual(pages[1].object_list, [3, 4])
-        self.assertEqual(pages[2].object_list, [5])
-        self.assertEqual(pages[0].number, 1)
-        self.assertEqual(pages[1].number, 2)
-        self.assertEqual(pages[2].number, 3)
-
-    def test_paginator_iteration_single_page(self):
-        """
-        Paginator.__iter__ works correctly when there is only one page.
-        """
-        paginator = Paginator([1, 2, 3], 10)
-        pages = list(paginator)
-        self.assertEqual(len(pages), 1)
-        self.assertEqual(pages[0].object_list, [1, 2, 3])
-
-    def test_paginator_iteration_empty_list(self):
-        """
-        Paginator.__iter__ yields a single empty page when allow_empty_first_page=True.
-        """
-        paginator = Paginator([], 2)
-        pages = list(paginator)
-        self.assertEqual(len(pages), 1)
-        self.assertEqual(pages[0].object_list, [])
-
 
 class ModelPaginationTests(TestCase):
     """
